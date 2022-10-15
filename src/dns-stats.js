@@ -13,7 +13,7 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  'yandex.ru'
  * ]
  *
- * The result should be the following:
+ * The res should be the following:
  * {
  *   '.ru': 3,
  *   '.ru.yandex': 3,
@@ -22,9 +22,21 @@ const { NotImplementedError } = require('../extensions/index.js');
  * }
  *
  */
-function getDNSStats(/* domains */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+ function getDNSStats(domains) {
+  let res = {};
+  for (let item of domains) {
+    let arr = item.split('.').reverse();
+    let domain = '';
+    for (let elem of arr) {
+      domain += '.' + elem;
+      if (res.hasOwnProperty(domain)) {
+        res[domain] += 1;
+      } else {
+        res[domain] = 1;
+      }
+    }
+  }
+  return res;
 }
 
 module.exports = {
